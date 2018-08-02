@@ -37,8 +37,6 @@ final public class PHSlideImages: UIView, UICollectionViewDelegateFlowLayout, UI
     
     lazy var pageControl : UIPageControl = {
         let control = UIPageControl()
-        control.numberOfPages = numberOfPagesPagination
-        control.currentPage = currentPage
         control.hidesForSinglePage = true
         control.pageIndicatorTintColor = .lightGray
         control.currentPageIndicatorTintColor = UIColor(red:0.20, green:0.60, blue:0.86, alpha:1.0)
@@ -79,10 +77,10 @@ final public class PHSlideImages: UIView, UICollectionViewDelegateFlowLayout, UI
     fileprivate func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = scrollDirection
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(PHSlideImagesCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        self.collectionView.register(PHSlideImagesCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
     }
     
     fileprivate func setupLayout() {
@@ -97,6 +95,8 @@ final public class PHSlideImages: UIView, UICollectionViewDelegateFlowLayout, UI
             ])
         collectionView.addGestureRecognizer(tapGesture)
         if showPagination {
+            self.pageControl.numberOfPages = self.numberOfPagesPagination
+            self.pageControl.currentPage = self.currentPage
             self.addSubview(pageControl)
             NSLayoutConstraint(item: pageControl, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 20).isActive = true
             NSLayoutConstraint(item: pageControl, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: -20).isActive = true
