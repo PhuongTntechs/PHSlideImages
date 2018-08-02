@@ -30,8 +30,19 @@ final public class PHSlideImages: UIView, UICollectionViewDelegateFlowLayout, UI
     }
     
     public var showPagination: Bool = true
-    public var numberOfPagesPagination: Int = 3
-    public var currentPage: Int = 0
+    public var numberPages: Int = 3 {
+        didSet {
+            pageControl.numberOfPages = numberPages
+        }
+    }
+    public var currentPagePh: Int = 1 {
+        didSet {
+            pageControl.currentPage = currentPagePh
+        }
+    }
+//    public var numberOfPagesPagination: Int = 3
+//    public var currentPage: Int = 0
+    
     
     public var scrollDirection: UICollectionViewScrollDirection = .horizontal
     
@@ -95,8 +106,6 @@ final public class PHSlideImages: UIView, UICollectionViewDelegateFlowLayout, UI
             ])
         collectionView.addGestureRecognizer(tapGesture)
         if showPagination {
-            self.pageControl.numberOfPages = self.numberOfPagesPagination
-            self.pageControl.currentPage = self.currentPage
             self.addSubview(pageControl)
             NSLayoutConstraint(item: pageControl, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 20).isActive = true
             NSLayoutConstraint(item: pageControl, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: -20).isActive = true
